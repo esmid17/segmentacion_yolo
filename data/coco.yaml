@@ -1,0 +1,19 @@
+# Rutas (pueden ser absolutas o relativas)
+path: ../data/raw  # Ruta raíz de las imágenes (relativa a donde se ejecuta el entreno)
+train: train       # carpeta de entrenamiento dentro de 'raw'
+val: val           # carpeta de validación dentro de 'raw'
+
+# Clases (Ejemplo estándar de COCO)
+names:
+  0: person
+  1: bicycle
+  2: car
+  3: motorcycle
+  4: airplane
+  5: bus
+  6: train
+  7: truck
+  8: boat
+  9: traffic light
+  # ... (YOLO descargará la lista completa si usas el modelo pre-entrenado, 
+  # pero este archivo es vital si entrenas con tus propios datos)
