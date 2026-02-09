@@ -22,10 +22,10 @@ class COCODatasetHandler:
         imagenes_existentes = list(self.raw_dir.glob("*.jpg"))
         
         if len(imagenes_existentes) > 5:
-            print(f"[INFO] Ya tienes {len(imagenes_existentes)} imágenes listas. Saltando descarga.")
+            print(f"Ya tienes {len(imagenes_existentes)} imágenes listas. Saltando descarga.")
             return
 
-        print("[INFO] Carpeta vacía. Iniciando descarga de COCO128...")
+        print("Carpeta vacía. Iniciando descarga de COCO128")
         self._download_and_extract()
 
     def _download_and_extract(self):
@@ -37,9 +37,9 @@ class COCODatasetHandler:
             with open(zip_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
-            print("[INFO] Descarga completada. Descomprimiendo...")
+            print("Descarga completada. Descomprimiendo")
         except Exception as e:
-            print(f"[ERROR] Falló la descarga: {e}")
+            print(f"Falló la descarga: {e}")
             return
 
         # 2. Descomprimir
@@ -47,18 +47,17 @@ class COCODatasetHandler:
             with zipfile.ZipFile(zip_path, 'r') as zip_ref:
                 zip_ref.extractall(self.raw_dir)
         except zipfile.BadZipFile:
-            print("[ERROR] El archivo ZIP descargado está corrupto.")
+            print("El archivo ZIP descargado está corrupto.")
             return
 
-        # 3. BÚSQUEDA INTELIGENTE Y MOVIMIENTO DE ARCHIVOS
-        print("[INFO] Organizando archivos...")
+        print("Organizando archivos...")
         
         # Busca recursivamente cualquier .jpg dentro de raw_dir
         # rglob = recursive glob search
         found_images = list(self.raw_dir.rglob("*.jpg"))
         
         if not found_images:
-            print("[ERROR] No se encontraron imágenes JPG dentro del ZIP.")
+            print("No se encontraron imágenes JPG dentro del ZIP.")
             return
 
         count = 0
@@ -73,7 +72,7 @@ class COCODatasetHandler:
 
         print(f"[EXITO] Se movieron {count} imágenes a {self.raw_dir}")
 
-        # 4. Limpieza (Borrar el zip y las carpetas sobrantes)
+        # 4. Limpieza
         try:
             os.remove(zip_path) # Borrar zip
             # Borrar las carpetas vacías que quedaron (como 'coco128')
@@ -81,4 +80,4 @@ class COCODatasetHandler:
                 if child.is_dir():
                     shutil.rmtree(child)
         except Exception as e:
-            print(f"[AVISO] No se pudo limpiar algunas carpetas temporales: {e}")
+            print(f"No se pudo limpiar algunas carpetas temporales: {e}")

@@ -9,7 +9,7 @@ from src.model import YoloSegmentationModel
 from src.dataset_manager import COCODatasetHandler
 from config import settings
 
-# --- 2. FUNCIÓN DE LIMPIEZA ---
+# 2. Funcion para limpiar
 def limpiar_outputs():
     """Borra todo el contenido de la carpeta de salida."""
     folder = settings.OUTPUT_DIR
@@ -23,10 +23,8 @@ def limpiar_outputs():
     os.makedirs(folder)
 
 def main():
-    # --- 3. LLAMAR A LA LIMPIEZA AL INICIO ---
     limpiar_outputs()
 
-    # (El resto de tu código sigue igual...)
     print("--- 1. Verificando Dataset COCO ---")
     dataset_handler = COCODatasetHandler()
     # ... resto del código ...
@@ -51,8 +49,8 @@ def main():
         print("[ERROR] No se encontraron imágenes.")
         return
 
-    # --- CAMBIO IMPORTANTE: MEZCLAR ---
-    random.shuffle(todas_las_imagenes)  # <--- 2. ESTO MEZCLA LAS CARTAS
+    # Imágenes random
+    random.shuffle(todas_las_imagenes)
     
     # Ahora tomamos las primeras 5, pero como están mezcladas, serán diferentes cada vez
     imagenes_a_procesar = todas_las_imagenes[:5]
