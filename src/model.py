@@ -7,14 +7,14 @@ class YoloSegmentationModel:
     def __init__(self, model_path=None):
         # Si no pasamos ruta, usa el definido en settings
         model_name = model_path if model_path else settings.MODEL_NAME
-        print(f"[INFO] Cargando modelo: {model_name}...")
+        print(f"Cargando modelo: {model_name}...")
         self.model = YOLO(model_name)
 
     def predict(self, image_path, save=True):
         """
         Realiza la segmentación en una imagen.
         """
-        print(f"[INFO] Procesando imagen: {image_path}")
+        print(f"Procesando imagen: {image_path}")
         
         # Inferencia
         results = self.model.predict(
@@ -46,7 +46,7 @@ class YoloSegmentationModel:
         
         # Guardar con OpenCV
         cv2.imwrite(str(save_path), plotted_img)
-        print(f"[EXITO] Imagen guardada en: {save_path}")
+        print(f"Imagen guardada en: {save_path}")
         
         # Opcional: Mostrar en pantalla (presionar 'q' para cerrar)
         # cv2.imshow("YOLO Segmentation", plotted_img)
